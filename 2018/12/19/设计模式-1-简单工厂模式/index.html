@@ -44,7 +44,7 @@
 <meta property="og:description" content="模式定义静态工厂模式，又称简单工厂模式，它属于类创建性模式，根据参数的不同返回不同类的实例。静态工厂模式定义一个工厂类来负责创建其他类的实例，被创建的实例通常都有共同的父类。 模式结构   角色 功能     Factory 工厂角色 负责创建所有实例产品，只需传参给Factory，创建对应的实例对象   Product 抽象产品角色 是所有实例产品的父类，描述所有实例对象所共有的接口   Con">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/2018/12/19/设计模式-1-简单工厂模式/1.jpeg">
-<meta property="og:updated_time" content="2018-12-19T12:17:51.821Z">
+<meta property="og:updated_time" content="2018-12-19T12:22:46.693Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式(1) : 简单工厂模式">
 <meta name="twitter:description" content="模式定义静态工厂模式，又称简单工厂模式，它属于类创建性模式，根据参数的不同返回不同类的实例。静态工厂模式定义一个工厂类来负责创建其他类的实例，被创建的实例通常都有共同的父类。 模式结构   角色 功能     Factory 工厂角色 负责创建所有实例产品，只需传参给Factory，创建对应的实例对象   Product 抽象产品角色 是所有实例产品的父类，描述所有实例对象所共有的接口   Con">
@@ -132,8 +132,8 @@
 
     
             <div class="post-content">
-            <h2 id="模式定义"><a href="#模式定义" class="headerlink" title="模式定义"></a>模式定义</h2><p>静态工厂模式，又称简单工厂模式，它属于类创建性模式，根据参数的不同返回不同类的实例。静态工厂模式定义一个工厂类来负责创建其他类的实例，被创建的实例通常都有共同的父类。<br><img src="/2018/12/19/设计模式-1-简单工厂模式/1.jpeg" title="uml img"></p>
-<h2 id="模式结构"><a href="#模式结构" class="headerlink" title="模式结构"></a>模式结构</h2><table>
+            <h1 id="模式定义"><a href="#模式定义" class="headerlink" title="模式定义"></a>模式定义</h1><p>静态工厂模式，又称简单工厂模式，它属于类创建性模式，根据参数的不同返回不同类的实例。静态工厂模式定义一个工厂类来负责创建其他类的实例，被创建的实例通常都有共同的父类。<br><img src="/2018/12/19/设计模式-1-简单工厂模式/1.jpeg" title="uml img"></p>
+<h1 id="模式结构"><a href="#模式结构" class="headerlink" title="模式结构"></a>模式结构</h1><table>
 <thead>
 <tr>
 <th>角色</th>
@@ -155,8 +155,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>静态工厂模式最大的优点在于实现对象的创建和对象的使用分离，将对象的创建交给专门的工厂类负责，但是其最大的缺点在于工厂类不够灵活，增加新的具体产品需要修改工厂类的判断逻辑代码，而且产品较多时，工厂方法代码将会非常复杂。</p>
-<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><ul>
+<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>静态工厂模式最大的优点在于实现对象的创建和对象的使用分离，将对象的创建交给专门的工厂类负责，但是其最大的缺点在于工厂类不够灵活，增加新的具体产品需要修改工厂类的判断逻辑代码，而且产品较多时，工厂方法代码将会非常复杂。</p>
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><ul>
 <li><p>Factory</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Factory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> IProduct <span class="title">CreateProduct</span><span class="params">(String productName)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(productName == <span class="string">"productA"</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ProductA();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(productName == <span class="string">"productB"</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ProductB();</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>

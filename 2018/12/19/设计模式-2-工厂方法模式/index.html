@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="设计模式(2) : 工厂方法模式">
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="不会写代码的桐狗子">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1">
+
+
+
+<link rel="canonical" href="http://yoursite.com/2018/12/19/设计模式-2-工厂方法模式/">
+
+
+<meta name="description" content="模式定义工厂方法模式(Factory Method), 定义一个用于创建对象的接口，让子类决定实例化某个类。 模式结构   角色 功能     Factory 抽象工厂角色 工厂接口，声明工厂类所用方法   ConcreteFactory 实例工厂角色 用来创建实例产品   Product 抽象产品角色 是所有实例产品的父类，描述所有实例对象所共有的接口   ConcreteProduct 实例产">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式(2) : 工厂方法模式">
+<meta property="og:url" content="http://yoursite.com/2018/12/19/设计模式-2-工厂方法模式/index.html">
+<meta property="og:site_name" content="不会写代码的桐狗子">
+<meta property="og:description" content="模式定义工厂方法模式(Factory Method), 定义一个用于创建对象的接口，让子类决定实例化某个类。 模式结构   角色 功能     Factory 抽象工厂角色 工厂接口，声明工厂类所用方法   ConcreteFactory 实例工厂角色 用来创建实例产品   Product 抽象产品角色 是所有实例产品的父类，描述所有实例对象所共有的接口   ConcreteProduct 实例产">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2018/12/19/设计模式-2-工厂方法模式/1.jpeg">
+<meta property="og:updated_time" content="2018-12-19T12:19:10.949Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式(2) : 工厂方法模式">
+<meta name="twitter:description" content="模式定义工厂方法模式(Factory Method), 定义一个用于创建对象的接口，让子类决定实例化某个类。 模式结构   角色 功能     Factory 抽象工厂角色 工厂接口，声明工厂类所用方法   ConcreteFactory 实例工厂角色 用来创建实例产品   Product 抽象产品角色 是所有实例产品的父类，描述所有实例对象所共有的接口   ConcreteProduct 实例产">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/19/设计模式-2-工厂方法模式/1.jpeg">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> 设计模式(2) : 工厂方法模式 - 不会写代码的桐狗子 </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">不会写代码的桐狗子</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          设计模式(2) : 工厂方法模式
+        
+      </h1>
+
+      <time class="post-time">
+          Dec 19 2018
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <h2 id="模式定义"><a href="#模式定义" class="headerlink" title="模式定义"></a>模式定义</h2><p>工厂方法模式(Factory Method), 定义一个用于创建对象的接口，让子类决定实例化某个类。<br><img src="/2018/12/19/设计模式-2-工厂方法模式/1.jpeg" title="uml img"></p>
+<h2 id="模式结构"><a href="#模式结构" class="headerlink" title="模式结构"></a>模式结构</h2><table>
+<thead>
+<tr>
+<th>角色</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Factory 抽象工厂角色</td>
+<td>工厂接口，声明工厂类所用方法</td>
+</tr>
+<tr>
+<td>ConcreteFactory 实例工厂角色</td>
+<td>用来创建实例产品</td>
+</tr>
+<tr>
+<td>Product 抽象产品角色</td>
+<td>是所有实例产品的父类，描述所有实例对象所共有的接口</td>
+</tr>
+<tr>
+<td>ConcreteProduct 实例产品角色</td>
+<td>是Factory创建的目标</td>
+</tr>
+</tbody>
+</table>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>工厂方法模式优于简单工厂模式的是，简单工厂模式只有一个工厂类，如果要增加一个产品分支，则要修改工厂类，违背开放-封闭原则，而工厂方法模式定义工厂接口，可以增加实例工厂类而不用修改现有工厂类，实现解耦合。</p>
+<p>##实例</p>
+<ul>
+<li><p>Client </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        IFactory factory = <span class="keyword">new</span> FactoryCreateProductA();</span><br><span class="line">        IProduct product = factory.CreateProduct();</span><br><span class="line">        product.ProductFunc();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>IFactory</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IFactory</span> </span>&#123;</span><br><span class="line">    <span class="function">IProduct <span class="title">CreateProduct</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>FactoryCreateProductA</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FactoryCreateProductA</span> <span class="keyword">implements</span> <span class="title">IFactory</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IProduct <span class="title">CreateProduct</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ProductA();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>FactoryCreateProductB</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FactoryCreateProductB</span> <span class="keyword">implements</span> <span class="title">IFactory</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IProduct <span class="title">CreateProduct</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ProductB();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>IProduct</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IProduct</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">ProductFunc</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ProductA</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProductA</span> <span class="keyword">implements</span> <span class="title">IProduct</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ProductFunc</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"this is product A."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ProductB</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProductB</span> <span class="keyword">implements</span> <span class="title">IProduct</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ProductFunc</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"this is product B."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2018/12/19/设计模式-1-简单工厂模式/">
+        <span class="next-text nav-default">设计模式(1) : 简单工厂模式</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2018
+    <span class="footer-author">Shengtong Yuan.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>

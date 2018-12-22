@@ -44,7 +44,7 @@
 <meta property="og:description" content="模式定义提供一个创建一系列相关或相互依赖对象的接口，而无需指定他们具体的类。 分析抽象工厂易于交换产品系列，由于具体工厂类在一个应用中只需要在初始化的时候出现一次，这就使得改变一个应用的具体工厂变得非常容易，他只需要改变具体工厂即可使用不同的产品配置。同时他让具体的创建实例过程与客户端分离，客户端是通过他们的接口来操纵实例，产品的具体类名也被具体工厂的实现分离。 实例一个网站需要连接数据库并做操作">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/2018/12/22/设计模式-3-抽象工厂模式/1.jpeg">
-<meta property="og:updated_time" content="2018-12-22T01:49:30.389Z">
+<meta property="og:updated_time" content="2018-12-22T01:53:00.337Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式(3) : 抽象工厂模式">
 <meta name="twitter:description" content="模式定义提供一个创建一系列相关或相互依赖对象的接口，而无需指定他们具体的类。 分析抽象工厂易于交换产品系列，由于具体工厂类在一个应用中只需要在初始化的时候出现一次，这就使得改变一个应用的具体工厂变得非常容易，他只需要改变具体工厂即可使用不同的产品配置。同时他让具体的创建实例过程与客户端分离，客户端是通过他们的接口来操纵实例，产品的具体类名也被具体工厂的实现分离。 实例一个网站需要连接数据库并做操作">
@@ -144,10 +144,7 @@
 </li>
 </ul>
 <hr>
-<ol>
-<li>抽象工厂模式</li>
-</ol>
-<table>
+<h1 id="1-抽象工厂模式"><a href="#1-抽象工厂模式" class="headerlink" title="1. 抽象工厂模式"></a>1. 抽象工厂模式</h1><table>
 <thead>
 <tr>
 <th>IFactory</th>
@@ -201,9 +198,7 @@
 </li>
 </ul>
 <hr>
-<ol start="2">
-<li>简单工厂模式 + 抽象工厂模式<br>如果单纯使用抽象工厂模式会有一些弊端，如果要在数据库中增加一个新的表Project，则要至少增加三个类，IProject,SqlserverProject和AccessProject,还要修改IFactory，SqlserverFactory和AccessFactory，工作非常繁琐。<br>在此，增加一个DataAccess类，在DataAccess类中设置使用sqlserver还是Access，这样在Client端只需要DataAccess.CreateUser()就可以创建Product，不用在客户端指定数据库，实现Client端和服务端的解耦合。</li>
-</ol>
+<h1 id="2-简单工厂模式-抽象工厂模式"><a href="#2-简单工厂模式-抽象工厂模式" class="headerlink" title="2. 简单工厂模式 + 抽象工厂模式"></a>2. 简单工厂模式 + 抽象工厂模式</h1><p>如果单纯使用抽象工厂模式会有一些弊端，如果要在数据库中增加一个新的表Project，则要至少增加三个类，IProject,SqlserverProject和AccessProject,还要修改IFactory，SqlserverFactory和AccessFactory，工作非常繁琐。<br>在此，增加一个DataAccess类，在DataAccess类中设置使用sqlserver还是Access，这样在Client端只需要DataAccess.CreateUser()就可以创建Product，不用在客户端指定数据库，实现Client端和服务端的解耦合。</p>
 <ul>
 <li><p>DataAccess</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DataAccess</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String db = <span class="string">"sqlserver"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> IUser <span class="title">CreateUser</span><span class="params">()</span></span>&#123;</span><br><span class="line">        IUser result = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">switch</span> (db)&#123;</span><br><span class="line">            <span class="keyword">case</span><span class="string">"sqlserver"</span>:</span><br><span class="line">                result = <span class="keyword">new</span> SqlserverUser();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span><span class="string">"Access"</span>:</span><br><span class="line">                result = <span class="keyword">new</span> AccessUser();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> IDepartment <span class="title">CreateDepartment</span><span class="params">()</span></span>&#123;</span><br><span class="line">        IDepartment result = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">switch</span> (db)&#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"sqlserver"</span>:</span><br><span class="line">                result = <span class="keyword">new</span> SqlserverDepartment();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"Access"</span>:</span><br><span class="line">                result = <span class="keyword">new</span> AccessDepartment();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -213,17 +208,13 @@
 </li>
 </ul>
 <hr>
-<ol start="3">
-<li>反射 + 抽象工厂模式<br>第二种方式已经很好的解耦合，但是如果要更换数据库或者增加新的数据库例如Oracle，还是要修改DataAccess类的swich部分，还是违背了开放-关闭原则，使用反射技术，利用反射特性，只需要类的名称就可以获得类的Class信息来创建对象，由于只使用字符串就可以创建对象，所以客户端只需要传入字符串就可以，不用修改类。</li>
-</ol>
+<h1 id="3-反射-抽象工厂模式"><a href="#3-反射-抽象工厂模式" class="headerlink" title="3. 反射 + 抽象工厂模式"></a>3. 反射 + 抽象工厂模式</h1><p>第二种方式已经很好的解耦合，但是如果要更换数据库或者增加新的数据库例如Oracle，还是要修改DataAccess类的swich部分，还是违背了开放-关闭原则，使用反射技术，利用反射特性，只需要类的名称就可以获得类的Class信息来创建对象，由于只使用字符串就可以创建对象，所以客户端只需要传入字符串就可以，不用修改类。</p>
 <ul>
 <li>Client<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line"></span><br><span class="line">        User user = <span class="keyword">new</span> User();</span><br><span class="line">        Department department = <span class="keyword">new</span> Department();</span><br><span class="line"></span><br><span class="line">       <span class="comment">//3.Reflection + AbstractFactory</span></span><br><span class="line">        String db = <span class="string">"AbstractFactory.Product.User.AccessUser"</span>;</span><br><span class="line">        Class clazz3 = Class.forName(db);</span><br><span class="line">        IUser iu3 = (IUser) clazz3.newInstance();</span><br><span class="line">        iu3.Insert(user);</span><br><span class="line">        iu3.GetUser(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <hr>
-<ol start="4">
-<li>配置文件 + 反射 + 抽象工厂模式<br>第三种方式已经全完的解耦合，但是在实际开发的时候为了方便配置会使用配置文件的方式，这样既方便管理，又不需要修改任何代码，十分方便。</li>
-</ol>
+<h1 id="4-配置文件-反射-抽象工厂模式"><a href="#4-配置文件-反射-抽象工厂模式" class="headerlink" title="4. 配置文件 + 反射 + 抽象工厂模式"></a>4. 配置文件 + 反射 + 抽象工厂模式</h1><p>第三种方式已经全完的解耦合，但是在实际开发的时候为了方便配置会使用配置文件的方式，这样既方便管理，又不需要修改任何代码，十分方便。</p>
 <ul>
 <li><p>db.properties</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db_Access = AbstractFactory.Product.User.AccessUser</span><br><span class="line">db_Sqlserver = AbstractFactory.Product.User.SqlserverUser</span><br></pre></td></tr></table></figure>

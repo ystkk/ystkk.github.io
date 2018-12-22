@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="设计模式(3) : 抽象工厂模式">
+
+
+
+
+  <meta name="keywords" content="设计模式,">
+
+
+
+
+
+  <link rel="alternate" href="/default" title="不会写代码的桐狗子">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1">
+
+
+
+<link rel="canonical" href="http://yoursite.com/2018/12/22/设计模式-3-抽象工厂模式/">
+
+
+<meta name="description" content="模式定义提供一个创建一系列相关或相互依赖对象的接口，而无需指定他们具体的类。 分析抽象工厂易于交换产品系列，由于具体工厂类在一个应用中只需要在初始化的时候出现一次，这就使得改变一个应用的具体工厂变得非常容易，他只需要改变具体工厂即可使用不同的产品配置。同时他让具体的创建实例过程与客户端分离，客户端是通过他们的接口来操纵实例，产品的具体类名也被具体工厂的实现分离。 实例一个网站需要连接数据库并做操作">
+<meta name="keywords" content="设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式(3) : 抽象工厂模式">
+<meta property="og:url" content="http://yoursite.com/2018/12/22/设计模式-3-抽象工厂模式/index.html">
+<meta property="og:site_name" content="不会写代码的桐狗子">
+<meta property="og:description" content="模式定义提供一个创建一系列相关或相互依赖对象的接口，而无需指定他们具体的类。 分析抽象工厂易于交换产品系列，由于具体工厂类在一个应用中只需要在初始化的时候出现一次，这就使得改变一个应用的具体工厂变得非常容易，他只需要改变具体工厂即可使用不同的产品配置。同时他让具体的创建实例过程与客户端分离，客户端是通过他们的接口来操纵实例，产品的具体类名也被具体工厂的实现分离。 实例一个网站需要连接数据库并做操作">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2018/12/22/设计模式-3-抽象工厂模式/1.jpeg">
+<meta property="og:updated_time" content="2018-12-22T01:49:30.389Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式(3) : 抽象工厂模式">
+<meta name="twitter:description" content="模式定义提供一个创建一系列相关或相互依赖对象的接口，而无需指定他们具体的类。 分析抽象工厂易于交换产品系列，由于具体工厂类在一个应用中只需要在初始化的时候出现一次，这就使得改变一个应用的具体工厂变得非常容易，他只需要改变具体工厂即可使用不同的产品配置。同时他让具体的创建实例过程与客户端分离，客户端是通过他们的接口来操纵实例，产品的具体类名也被具体工厂的实现分离。 实例一个网站需要连接数据库并做操作">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/22/设计模式-3-抽象工厂模式/1.jpeg">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> 设计模式(3) : 抽象工厂模式 - 不会写代码的桐狗子 </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">不会写代码的桐狗子</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          设计模式(3) : 抽象工厂模式
+        
+      </h1>
+
+      <time class="post-time">
+          Dec 22 2018
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <h1 id="模式定义"><a href="#模式定义" class="headerlink" title="模式定义"></a>模式定义</h1><p>提供一个创建一系列相关或相互依赖对象的接口，而无需指定他们具体的类。<br><img src="/2018/12/22/设计模式-3-抽象工厂模式/1.jpeg" title="uml img"></p>
+<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>抽象工厂易于交换产品系列，由于具体工厂类在一个应用中只需要在初始化的时候出现一次，这就使得改变一个应用的具体工厂变得非常容易，他只需要改变具体工厂即可使用不同的产品配置。<br>同时他让具体的创建实例过程与客户端分离，客户端是通过他们的接口来操纵实例，产品的具体类名也被具体工厂的实现分离。</p>
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><p>一个网站需要连接数据库并做操作，数据表有User表和Department表，一开始使用Sqlserver作为数据库，但在不同的部署地点使用Access作为数据库，所以需要两个工厂类来各自创建对User和Department的操作类。</p>
+<ul>
+<li><p>User</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> UserId;</span><br><span class="line">    <span class="keyword">public</span> String UserName;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Department</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Department</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> DepartmentId;</span><br><span class="line">    <span class="keyword">public</span> String DepartmentName;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<ol>
+<li>抽象工厂模式</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>IFactory</th>
+<th>IUser</th>
+<th>IDepartment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SqlserverFactory</td>
+<td>SqlserverUser</td>
+<td>SqlserverDepartment</td>
+</tr>
+<tr>
+<td>AccessFactory</td>
+<td>AccessUser</td>
+<td>AccessDepartment</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>Client</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line"></span><br><span class="line">        User user = <span class="keyword">new</span> User();</span><br><span class="line">        Department department = <span class="keyword">new</span> Department();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//1.AbstractFactory</span></span><br><span class="line">        <span class="comment">//1.1 只需确定实例化哪一个数据库访问对象给factory</span></span><br><span class="line">        IFactory factory = <span class="keyword">new</span> SqlserverFactory();</span><br><span class="line">        <span class="comment">//1.2 此时已经与具体的数据库访问接触依赖</span></span><br><span class="line">        IUser iu = factory.CreateUser();</span><br><span class="line">        iu.Insert(user);</span><br><span class="line">        iu.GetUser(<span class="number">1</span>);</span><br><span class="line">        IDepartment id = factory.CreateDepartment();</span><br><span class="line">        id.Insert(department);</span><br><span class="line">        id.Insert(department);</span><br><span class="line">        id.GetDepartment(<span class="number">1</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>IFactory</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IFactory</span> </span>&#123;</span><br><span class="line">    <span class="function">IUser <span class="title">CreateUser</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">IDepartment <span class="title">CreateDepartment</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>AccessFactory</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccessFactory</span> <span class="keyword">implements</span> <span class="title">IFactory</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IUser <span class="title">CreateUser</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> AccessUser();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IDepartment <span class="title">CreateDepartment</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> AccessDepartment();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>SqlserverFactory</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SqlserverFactory</span> <span class="keyword">implements</span> <span class="title">IFactory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IUser <span class="title">CreateUser</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SqlserverUser();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IDepartment <span class="title">CreateDepartment</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SqlserverDepartment();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>IDepartment</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IDepartment</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Insert</span><span class="params">(Department department)</span></span>;</span><br><span class="line">    <span class="function">Department <span class="title">GetDepartment</span><span class="params">(<span class="keyword">int</span> departmentId)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>AccessDepartment</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccessDepartment</span> <span class="keyword">implements</span> <span class="title">IDepartment</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Insert</span><span class="params">(Department department)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"insert Department to Access db"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Department <span class="title">GetDepartment</span><span class="params">(<span class="keyword">int</span> departmentId)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"get Department from Access db"</span>); <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>SqlserverDepartment</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SqlserverDepartment</span> <span class="keyword">implements</span> <span class="title">IDepartment</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Insert</span><span class="params">(Department department)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"insert Department to Sqlserver db"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Department <span class="title">GetDepartment</span><span class="params">(<span class="keyword">int</span> departmentId)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"get Department from Sqlserver db"</span>); <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>IUser</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IUser</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Insert</span><span class="params">(User user)</span></span>;</span><br><span class="line">    <span class="function">User <span class="title">GetUser</span><span class="params">(<span class="keyword">int</span> id)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>AccessUser</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccessUser</span> <span class="keyword">implements</span> <span class="title">IUser</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Insert</span><span class="params">(User user)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"insert user to Access db"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">GetUser</span><span class="params">(<span class="keyword">int</span> userId)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"get user from Access db"</span>); <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>SqlserverUser</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SqlserverUser</span> <span class="keyword">implements</span> <span class="title">IUser</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Insert</span><span class="params">(User user)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"insert user to Sqlserver db"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">GetUser</span><span class="params">(<span class="keyword">int</span> userId)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"get user from Sqlserver db"</span>); <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<ol start="2">
+<li>简单工厂模式 + 抽象工厂模式<br>如果单纯使用抽象工厂模式会有一些弊端，如果要在数据库中增加一个新的表Project，则要至少增加三个类，IProject,SqlserverProject和AccessProject,还要修改IFactory，SqlserverFactory和AccessFactory，工作非常繁琐。<br>在此，增加一个DataAccess类，在DataAccess类中设置使用sqlserver还是Access，这样在Client端只需要DataAccess.CreateUser()就可以创建Product，不用在客户端指定数据库，实现Client端和服务端的解耦合。</li>
+</ol>
+<ul>
+<li><p>DataAccess</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DataAccess</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String db = <span class="string">"sqlserver"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> IUser <span class="title">CreateUser</span><span class="params">()</span></span>&#123;</span><br><span class="line">        IUser result = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">switch</span> (db)&#123;</span><br><span class="line">            <span class="keyword">case</span><span class="string">"sqlserver"</span>:</span><br><span class="line">                result = <span class="keyword">new</span> SqlserverUser();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span><span class="string">"Access"</span>:</span><br><span class="line">                result = <span class="keyword">new</span> AccessUser();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> IDepartment <span class="title">CreateDepartment</span><span class="params">()</span></span>&#123;</span><br><span class="line">        IDepartment result = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">switch</span> (db)&#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"sqlserver"</span>:</span><br><span class="line">                result = <span class="keyword">new</span> SqlserverDepartment();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"Access"</span>:</span><br><span class="line">                result = <span class="keyword">new</span> AccessDepartment();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Client</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line"></span><br><span class="line">        User user = <span class="keyword">new</span> User();</span><br><span class="line">        Department department = <span class="keyword">new</span> Department();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//2.SimpleFactory + AbstractFactory</span></span><br><span class="line">        <span class="comment">//把工厂类和工厂接口封装为DataAccess类</span></span><br><span class="line">        <span class="comment">//client端没有出现sqlserver或者access，实现了服务端与用户端解耦</span></span><br><span class="line">        <span class="comment">//但如果要增加工厂就需要修改DataAccess类，违背开放-关闭原则</span></span><br><span class="line">        IUser iu2 = DataAccess.CreateUser();</span><br><span class="line">        iu2.GetUser(<span class="number">1</span>);</span><br><span class="line">        iu2.Insert(user);</span><br><span class="line">        IDepartment id2 = DataAccess.CreateDepartment();</span><br><span class="line">        id2.GetDepartment(<span class="number">1</span>);</span><br><span class="line">        id2.Insert(department);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<ol start="3">
+<li>反射 + 抽象工厂模式<br>第二种方式已经很好的解耦合，但是如果要更换数据库或者增加新的数据库例如Oracle，还是要修改DataAccess类的swich部分，还是违背了开放-关闭原则，使用反射技术，利用反射特性，只需要类的名称就可以获得类的Class信息来创建对象，由于只使用字符串就可以创建对象，所以客户端只需要传入字符串就可以，不用修改类。</li>
+</ol>
+<ul>
+<li>Client<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line"></span><br><span class="line">        User user = <span class="keyword">new</span> User();</span><br><span class="line">        Department department = <span class="keyword">new</span> Department();</span><br><span class="line"></span><br><span class="line">       <span class="comment">//3.Reflection + AbstractFactory</span></span><br><span class="line">        String db = <span class="string">"AbstractFactory.Product.User.AccessUser"</span>;</span><br><span class="line">        Class clazz3 = Class.forName(db);</span><br><span class="line">        IUser iu3 = (IUser) clazz3.newInstance();</span><br><span class="line">        iu3.Insert(user);</span><br><span class="line">        iu3.GetUser(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<ol start="4">
+<li>配置文件 + 反射 + 抽象工厂模式<br>第三种方式已经全完的解耦合，但是在实际开发的时候为了方便配置会使用配置文件的方式，这样既方便管理，又不需要修改任何代码，十分方便。</li>
+</ol>
+<ul>
+<li><p>db.properties</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db_Access = AbstractFactory.Product.User.AccessUser</span><br><span class="line">db_Sqlserver = AbstractFactory.Product.User.SqlserverUser</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Client</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line"></span><br><span class="line">        User user = <span class="keyword">new</span> User();</span><br><span class="line">        Department department = <span class="keyword">new</span> Department();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//4.Configuration + Reflection + AbstractFactory</span></span><br><span class="line">        <span class="comment">//4.1 读取配置文件</span></span><br><span class="line">        Properties props = <span class="keyword">new</span> Properties();</span><br><span class="line">        props.load(<span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> FileReader(<span class="string">"./src/AbstractFactory/db.properties"</span>)));</span><br><span class="line">        String product = props.getProperty(<span class="string">"db_Access"</span>);</span><br><span class="line">        <span class="comment">//4.2 利用反射创建</span></span><br><span class="line">        Class clazz4 = Class.forName(product);</span><br><span class="line">        IUser iu4 = (IUser) clazz4.newInstance();</span><br><span class="line">        iu4.Insert(user);</span><br><span class="line">        iu4.GetUser(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/设计模式/">设计模式</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2018/12/19/设计模式-2-工厂方法模式/">
+        <span class="next-text nav-default">设计模式(2) : 工厂方法模式</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2018
+    <span class="footer-author">Shengtong Yuan.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>

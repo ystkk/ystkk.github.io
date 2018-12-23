@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="Effective Java(1) : 创建和销毁对象">
+
+
+
+
+  <meta name="keywords" content="Effective Java,">
+
+
+
+
+
+  <link rel="alternate" href="/default" title="不会写代码的桐狗子">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1">
+
+
+
+<link rel="canonical" href="http://yoursite.com/2018/12/23/EffectiveJava-1-创建和销毁对象/">
+
+
+<meta name="description" content="[1]考虑用静态工厂方法代替构造器优点1 相比于构造器，静态工厂方法有名称构造器通过参数列表的顺序和参数类型来区别不同的构造器，当调用时会产生混淆，而不同的静态工厂方法有不同的名称，方便调用。 优点2 相比于构造器，静态工厂方法不必在每次调用的时候都创建一个新对象可以使用预先构建好的实例，或者将构建好的实例缓存起来，重复利用，避免创建不必要的重复对象。  优点3 相比于构造器，静态工厂方法可以返回">
+<meta name="keywords" content="Effective Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Effective Java(1) : 创建和销毁对象">
+<meta property="og:url" content="http://yoursite.com/2018/12/23/EffectiveJava-1-创建和销毁对象/index.html">
+<meta property="og:site_name" content="不会写代码的桐狗子">
+<meta property="og:description" content="[1]考虑用静态工厂方法代替构造器优点1 相比于构造器，静态工厂方法有名称构造器通过参数列表的顺序和参数类型来区别不同的构造器，当调用时会产生混淆，而不同的静态工厂方法有不同的名称，方便调用。 优点2 相比于构造器，静态工厂方法不必在每次调用的时候都创建一个新对象可以使用预先构建好的实例，或者将构建好的实例缓存起来，重复利用，避免创建不必要的重复对象。  优点3 相比于构造器，静态工厂方法可以返回">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-23T03:09:10.342Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Effective Java(1) : 创建和销毁对象">
+<meta name="twitter:description" content="[1]考虑用静态工厂方法代替构造器优点1 相比于构造器，静态工厂方法有名称构造器通过参数列表的顺序和参数类型来区别不同的构造器，当调用时会产生混淆，而不同的静态工厂方法有不同的名称，方便调用。 优点2 相比于构造器，静态工厂方法不必在每次调用的时候都创建一个新对象可以使用预先构建好的实例，或者将构建好的实例缓存起来，重复利用，避免创建不必要的重复对象。  优点3 相比于构造器，静态工厂方法可以返回">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> Effective Java(1) : 创建和销毁对象 - 不会写代码的桐狗子 </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">不会写代码的桐狗子</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Effective Java(1) : 创建和销毁对象
+        
+      </h1>
+
+      <time class="post-time">
+          Dec 23 2018
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <h1 id="1-考虑用静态工厂方法代替构造器"><a href="#1-考虑用静态工厂方法代替构造器" class="headerlink" title="[1]考虑用静态工厂方法代替构造器"></a>[1]考虑用静态工厂方法代替构造器</h1><h3 id="优点1-相比于构造器，静态工厂方法有名称"><a href="#优点1-相比于构造器，静态工厂方法有名称" class="headerlink" title="优点1 相比于构造器，静态工厂方法有名称"></a>优点1 相比于构造器，静态工厂方法有名称</h3><p>构造器通过参数列表的顺序和参数类型来区别不同的构造器，当调用时会产生混淆，而不同的静态工厂方法有不同的名称，方便调用。</p>
+<h3 id="优点2-相比于构造器，静态工厂方法不必在每次调用的时候都创建一个新对象"><a href="#优点2-相比于构造器，静态工厂方法不必在每次调用的时候都创建一个新对象" class="headerlink" title="优点2 相比于构造器，静态工厂方法不必在每次调用的时候都创建一个新对象"></a>优点2 相比于构造器，静态工厂方法不必在每次调用的时候都创建一个新对象</h3><p>可以使用预先构建好的实例，或者将构建好的实例缓存起来，重复利用，避免创建不必要的重复对象。 </p>
+<h3 id="优点3-相比于构造器，静态工厂方法可以返回原返回类型的任何子类型的对象"><a href="#优点3-相比于构造器，静态工厂方法可以返回原返回类型的任何子类型的对象" class="headerlink" title="优点3 相比于构造器，静态工厂方法可以返回原返回类型的任何子类型的对象"></a>优点3 相比于构造器，静态工厂方法可以返回原返回类型的任何子类型的对象</h3><h3 id="优点4-相比于构造器，静态工厂方法在创建参数化类型实例的时候，使代码更加简洁"><a href="#优点4-相比于构造器，静态工厂方法在创建参数化类型实例的时候，使代码更加简洁" class="headerlink" title="优点4 相比于构造器，静态工厂方法在创建参数化类型实例的时候，使代码更加简洁"></a>优点4 相比于构造器，静态工厂方法在创建参数化类型实例的时候，使代码更加简洁</h3><h3 id="缺点1-类如果不含共有的或者受保护的构造器，就不能被子类化"><a href="#缺点1-类如果不含共有的或者受保护的构造器，就不能被子类化" class="headerlink" title="缺点1 类如果不含共有的或者受保护的构造器，就不能被子类化"></a>缺点1 类如果不含共有的或者受保护的构造器，就不能被子类化</h3><h3 id="缺点2-与其他静态方法实际上没有任何区别"><a href="#缺点2-与其他静态方法实际上没有任何区别" class="headerlink" title="缺点2 与其他静态方法实际上没有任何区别"></a>缺点2 与其他静态方法实际上没有任何区别</h3><p>如果只提供了静态工厂方法而不是构造器，要想查明如果实例化一个类是比较困难的。</p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/Effective-Java/">Effective Java</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2018/12/22/设计模式-3-抽象工厂模式/">
+        <span class="next-text nav-default">设计模式(3) : 抽象工厂模式</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2018
+    <span class="footer-author">Shengtong Yuan.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
